@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>flexbox</title>
+</head>
+<body>
+    <header>
+        <h1>Полное руководство по Flexbox</h1>
+        <p>Полное руководство по CSS flexbox. Это полное руководство объясняет все о flexbox, сосредотачиваясь на всех возможных свойствах для родительского элемента (контейнер flex) и дочерних элементов (элементы flex). Оно также включает в себя историю, демонстрации, шаблоны и таблицу поддержки браузеров.</p>
+    </header>
+
+    <nav>
+        <h3>Оглавление:</h3>
+        <ul>
+            <li>Background</li>
+            <li>Основы и терминология</li>
+            <li>Свойства для Родителя (flex контейнер)</li>
+            <li>Свойства для первых дочерних элементов(flex элементы)</li>
+            <li>Поддержка в браузерах</li>
+        </ul>
+    </nav>
+
+    <section class="container">
+        <details close>
+            <summary>Background</summary>
+            <p>Модуль Flexbox Layout (Flexible Box) (<a href="https://www.w3.org/TR/css-flexbox/" target="_blank">W3C Candidate Recommendation</a> от октября 2017 г.) направлен на обеспечение более эффективного способа размещения, выравнивания и распределения пространства между элементами в контейнере, даже если их размер неизвестен и / или динамичен (Flex значит «гибкий»).</p>
+                <p>Основная идея flex layout состоит в том, чтобы дать контейнеру возможность изменять ширину / высоту его элементов (и порядок), чтобы наилучшим образом заполнить доступное пространство (главным образом, для отображения на всех типах устройств с любым размером экрана). Flex контейнер расширяет элементы, чтобы заполнить доступное свободное пространство, или сжимает их, чтобы предотвратить переполнение.</p>
+                <p>Наиболее важно то, что макет flexbox не зависит от направления, в отличие от обычных макетов (block на вертикальной основе и inline на горизонтальной основе). Хотя они хорошо работают для страниц, им не хватает гибкости (без каламбура :-)) для поддержки больших или сложных приложений (особенно когда речь идет об изменении ориентации, изменении размера, растяжении, сжатии и т.д.).</p>
+                <p><strong>Примечание:</strong> Flexbox layout наиболее подходит для компонентов приложения и мелкомасштабных макетов, а Grid layout предназначен для макетов большего масштаба.</p>
+        </details>
+        
+        <details close>
+            <summary>Основы и терминология</summary>
+            <p>Поскольку flexbox — это целый модуль, а не одно свойство, он включает в себя множество элементов с набором свойств. Некоторые из них предназначены для установки в контейнере (родительский элемент принято называть «flex контейнер»), в то время как другие предназначены для установки в дочерних элементах (так называемые «flex элементы»).
+            </p>
+            <p>Если «обычная» компоновка основана как на блочном, так и на inline направлениях, flex layout основана на «направлениях flex-flow». Пожалуйста, посмотрите на этот рисунок из спецификации, объясняющий основную идею гибкого макета.</p>
+            <img src="assets/ee5h1np0idz_5_keo0y-jkklgc8.png" alt="изображение гибкости макета">
+
+            <p>Элементы будут расположены либо в направлении главной оси (<strong>main axis</strong> от <strong>main-start</strong> до <strong>main-end</strong>) или в направлении поперечной оси (<strong>cross axis</strong> от <strong>cross-start<strong> до </strong>cross-end</strong>).</p>
+
+            <ul>
+                <li><strong>main axis</strong> — главная ось flex контейнера — это основная ось, вдоль которой располагаются flex элементы. Будьте внимательны, эта ось не обязательна горизонтальная; это зависит от <strong>flex-direction</strong> свойства.</li>
+                <li><strong>main-start | main-end</strong> — flex элементы помещаются в контейнер, начиная с main-start и заканчивая main-end.</li>
+                <li><strong>main size</strong> — ширина или высота flex элемента, в зависимости от того, что находится в основном измерении. Определяется основным размером flex элементов т.е. свойством 'width' или 'height', в зависимости от того, что находится в основном измерении.</li>
+                <li><strong>cross axis</strong> — ось перпендикулярная главной оси, называется поперечной осью. Её направление зависит от направления главной оси.</li>
+                <li><strong>cross-start | cross-end</strong> — flex строки заполняются элементами и помещаются в контейнер, начиная от cross-start flex контейнера по направлению к cross-end.</li>
+                <li><strong>cross size</strong> — ширина или высота flex элемента. В зависимости от css свойства flex-direction, это ширина или высота элемента. Это всегда поперечный размер flex элементов.</li>
+            </ul>
+        </details>
+        
+
+        <h2>Свойства для Родителя (flex контейнер)</h2>
+        <img src="assets/ctui-mc0cplausp0t7ij6sjswfe.png" alt="контейнер">
+
+        <h4>display</h4>
+        <p>Определяет flex контейнер; inline или block в зависимости от заданного значения. Включает flex контекст для всех потомков первого уровня.</p>
+        <div class="example">
+            <p>flex-direction: row | row-reverse | column | column-reverse;</p>
+        </div>
+
+        <ol>
+            <li><strong>row</strong> (по умолчанию): слева направо в <strong> ltr</strong> ; справа налево в <strong> rtl</strong> </li>
+            <li><strong> row-reverse</strong>  справа налево <strong> ltr</strong> ; слева направо в <strong> rtl</strong> </li>
+            <li><strong>column</strong> : так же, как и <strong>row</strong> но сверху вниз</li>
+            <li><strong>column-reverse</strong>: то же самое, <strong>row-reverse</strong> но снизу вверх</li>
+        </ol>
+        <hr>
+
+        <h4>flex-wrap</h4>
+        <img src="assets/hxnem5h4fkzov-kaa2dbungqu1a.png" alt="перенос блоков">
+        <p>По умолчанию гибкие элементы будут пытаться уместиться на одной строке. Вы можете изменить это и позволить элементам переходить на новую строку по мере необходимости с помощью этого свойства.</p>
+        <div class="example">
+            <p>flex-wrap: nowrap | wrap | wrap-reverse;</p>
+        </div>
+
+        <ol>
+            <li><strong>nowrap</strong> (по умолчанию): все flex элементы будут в одной строке</li>
+            <li><strong>wrap</strong>: flex-элементы будут перенесены на несколько строк сверху вниз.</li>
+            <li><strong>wrap-reverse</strong>: flex-элементы будут перенесены на несколько строк снизу вверх.</li>
+        </ol>
+
+        <p>Посмотреть визуальные демоверсии поведения flex-wrap можно <a href="https://css-tricks.com/almanac/properties/f/flex-wrap/" target="_blank">здесь</a>.</p>
+        <hr>
+
+        <h4>flex-flow</h4>
+        <p>Применяется к родительскому элементу flex-контейнера. Это сокращение для <strong>flex-direction</strong> и <strong>flex-wrap</strong> свойств, которые вместе определяют основные и поперечные оси flex контейнера. </p>
+        <div class="example">
+            <p>flex-flow: <‘flex-direction’> || <‘flex-wrap’>;</p>
+        </div>
+        <p>Значением по умолчанию является <strong>row nowrap</strong>.</p>
+        <hr>
+
+        <h4>justify-content</h4>
+        <img src="assets/xzjd012ys6chgniakzq2rrxkcko.png" alt="выравнивание элементов по оси">
+        <p>Это свойство определяет выравнивание вдоль главной оси. Оно помогает распределить дополнительный остаток свободного пространства, когда-либо все flex элементы в строке негибкие, либо гибкие, но достигли своего максимального размера. Это также обеспечивает некоторый контроль над выравниванием элементов, когда они переполняют линию.</p>
+        <div class="example">
+            <p>justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;</p>
+        </div>
+
+        <ul>
+            <li><strong>flex-start</strong> (по умолчанию): элементы сдвинуты в начало flex-direction направления.</li>
+            <li><strong>flex-end</strong>: элементы сдвинуты ближе к концу flex направления.</li>
+            <li><strong>start</strong>: элементы сдвинуты к началу writing-mode направления.</li>
+            <li><strong>end</strong>: элементы сдвинуты в конце writing-mode направления.</li>
+            <li><strong>left</strong>: элементы сдвинуты по направлению к левому краю контейнера, если это не имеет смысла flex-direction, тогда он ведет себя как start.</li>
+            <li><strong>right</strong>: элементы сдвинуты по направлению к правому краю контейнера, если это не имеет смысла flex-direction, тогда он ведет себя как start.</li>
+            <li><strong>center</strong>: элементы центрированы вдоль линии</li>
+            <li><strong>space-between</strong>: элементы равномерно распределены по линии; первый элемент находится в начале строки, последний элемент в конце строки</li>
+            <li><strong>space-around</strong>: элементы равномерно распределены по линии с одинаковым пространством вокруг них. Обратите внимание, что визуально пространства не равны, так как все элементы имеют одинаковое пространство с обеих сторон. Первый элемент будет иметь одну единицу пространства напротив края контейнера, но две единицы пространства между следующим элементом, потому что у следующего элемента есть свой собственный интервал, который применяется.</li>
+            <li><strong>space-evenly</strong>: элементы распределяются таким образом, чтобы расстояние между любыми двумя элементами (и расстояние до краев) было одинаковым.</li>
+        </ul>
+
+        <p>Обратите внимание, что поддержка браузером этих значений имеет свои нюансы. Например, <strong>space-between</strong> никогда не получал поддержку Edge, а start / end / left / right еще нет в Chrome. В MDN есть <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" target="_blank">подробные графики</a>. Самые безопасные значения это <strong>flex-start</strong>, <strong>flex-end</strong> и <strong>center</strong>.</p>
+        <p>Есть также два дополнительных ключевых слова, которые вы можете связать с этими значениями: <strong>safe</strong> и <strong>unsafe</strong>. Использование <strong>safe</strong> гарантирует, что как бы вы ни занимались этим типом позиционирования, вы не сможете расположить элемент таким образом, чтобы он отображался за пределами экрана (например, сверху) так, чтобы содержимое тоже не могло быть прокручено (это называется «потеря данных»).</p>
+        <hr>
+
+        <h4>align-items</h4>
+        <img src="assets/ly98fwyuawpbr2cxemrzvaq7llg.png" alt="выравнивание по поперечной оси">
+        <p>Это свойство определяет поведение по умолчанию того, как flex элементы располагаются вдоль поперечной оси на текущей линии. Думайте об этом как о justify-content версии для поперечной оси (перпендикулярной главной оси).</p>
+        <div class="example">
+            <p>align-items: stretch | flex-start | flex-end | center | baseline | first baseline | last baseline | start | end | self-start | self-end + ... safe | unsafe;</p>
+        </div>
+
+        <ul>
+            <li><strong>stretch</strong> (по умолчанию): растягивать, чтобы заполнить контейнер (все еще соблюдаются min-width / max-width)</li>
+            <li><strong>flex-start</strong> / <strong>start</strong> / <strong>self-start</strong>: элементы размещаются в начале поперечной оси. Разница между ними невелика и заключается в соблюдении <strong>flex-direction</strong> правил или <strong>writing-mode</strong> правил.</li>
+            <li><strong>flex-end</strong> / <strong>end</strong> / <strong>self-end</strong>: элементы располагаются в конце поперечной оси. Разница опять-таки тонкая и заключается в соблюдении <strong>flex-direction</strong> или <strong>writing-mode</strong> правил.</li>
+            <li><strong>center</strong>: элементы центрированы по поперечной оси</li>
+            <li><strong>baseline</strong>: элементы выровнены, по их базовой линии</li>
+        </ul>
+
+        <p><strong>safe</strong> и <strong>unsafe</strong> ключевые слова модификаторов могут быть использованы в сочетании со всеми из этих ключевых слов (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-items" target="_blank">хотя это поддерживается не всеми браузерами</a>), это помогает предотвратить выравнивание элементов таким образом, что содержание становится недоступным.
+        </p>
+        <hr>
+
+        <h4>align-content</h4>
+        <img src="assets/zb7pksbln4quexonunaotjfkztg.png" alt="выравнивание нескольких строк">
+        <p>Это свойство выравнивает линии в пределах flex контейнера, когда есть дополнительное пространство на поперечной оси, подобно тому, как justify-content выравнивает отдельные элементы в пределах главной оси.</p>
+        <p><strong>Примечание</strong>: это свойство не действует, когда есть только одна строка flex элементов.</p>
+        <div class="example">
+            <p>align-content: flex-start | flex-end | center | space-between | space-around | space-evenly | stretch | start | end | baseline | first baseline | last baseline + ... safe | unsafe;</p>
+        </div>
+
+        <ul>
+            <li><strong>flex-start</strong> / <strong>start</strong>: элементы, сдвинуты в начало контейнера. Более поддерживаемый <strong>flex-start</strong> использует, <strong>flex-direction</strong> в то время как <strong>start</strong> использует </strong>writing-mode</strong> направление.</li>
+            <li><strong>flex-end</strong> / <strong>end</strong>: элементы, сдвинуты в конец контейнера. Более поддерживаемый <strong>flex-end</strong> использует <strong>flex-direction</strong> в то время как end использует <strong>writing-mode</strong> направление.</li>
+            <li><strong>center</strong>: элементы выровнены по центру в контейнере</li>
+            <li><strong>space-between</strong>: элементы равномерно распределены; первая строка находится в начале контейнера, а последняя — в конце</li>
+            <li><strong>space-around</strong>: элементы равномерно распределены с равным пространством вокруг каждой строки</li>
+            <li><strong>space-evenly</strong>: элементы распределены равномерно, вокруг них одинаковое пространство</li>
+            <li><strong>stretch</strong> (по умолчанию): линии растягиваются, чтобы занять оставшееся пространство</li>
+        </ul>
+
+        <p><strong>safe</strong> и <strong>unsafe</strong> ключевые слова модификаторов могут быть использованы в сочетании со всеми из этих ключевых слов (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-content" target="_blank">хотя это поддерживается не всеми браузерами</a>), это помогает предотвратить выравнивание элементов таким образом, что содержание становится недоступным.</p>
+
+        <h2>Свойства для первых дочерних элементов(flex элементы)</h2>
+        <div class="img-block">
+            <img src="assets/02-items.svg" alt="внутренние элементы">
+        </div>
+
+        <h4>order</h4>
+        <div class="img-block">
+            <img src="assets/order.svg" alt="изменение порядка элементов">
+        </div>
+
+        <p>Cвойство <strong>order</strong> определяет порядок, используемый для размещения flex элементов в их flex контейнере. Элементы располагаются в восходящем порядке по значению <strong>order</strong>.</p>
+        <div class="example">
+            <p>order: <"integer">; /* default is 0 */</p>
+        </div>
+        <p>Элементы с одинаковым значением <strong>order</strong> располагаются в том порядке, в каком они находятся в исходном коде.</p>
+        <hr>
+
+        <h4>flex-grow</h4>
+        <div class="img-block">
+            <img src="assets/flex-grow.svg" alt="пропорции элементов">
+        </div>
+
+        <p>Это свойство определяет способность flex элемента растягиваться в случае необходимости. Оно принимает значение от нуля, которое служит пропорцией. Это свойство, какое количество доступного пространства внутри гибкого контейнера должен занимать элемент.</p>
+        <p>Если для всех элементов <strong>flex-grow</strong>  установлено значение 1, оставшееся пространство в контейнере будет равномерно распределено между всеми дочерними элементами. Если один из дочерних элементов имеет значение 2, этот элемент займет в два раза больше места, чем остальные (или попытается, по крайней мере).</p>
+
+        <div class="example">
+            <p>flex-grow: <"number">; /* default 0 */</p>
+        </div>
+        <p>Отрицательные числа не поддерживаются.</p>
+        <hr>
+
+        <h4>flex-shrink</h4>
+        <p>Это свойство определяет способность гибкого элемента сжиматься при необходимости.</p>
+        <div class="example">
+            <p>flex-shrink: <"number">; /* default 1 */</p>
+        </div>
+        <p>Отрицательные числа не поддерживаются.</p>
+        <hr>
+
+        <h4>flex-basis</h4>
+
+        <p>Это свойство определяет размер элемента по умолчанию перед распределением оставшегося пространства. Это может быть длина (например, 20%, 5rem и т.д.) Или ключевое слово. Ключевое слово <strong>auto</strong> означает «смотри на мое width или height свойство». Ключевое слово <strong>content</strong> означает «размер на основе содержимого элемента» — это ключевое слово все еще не очень хорошо поддерживается, так что трудно проверить что для него используется <strong>max-content</strong>, <strong>min-content</strong> или <strong>fit-content</strong>.
+        </p>
+        <div class="example">
+            <p>flex-basis: <length> | auto; /* default auto */</p>
+        </div>
+        <p>Если установлено значение <strong>0</strong>, дополнительное пространство вокруг содержимого не учитывается. Если установлено значение <strong>auto</strong>, дополнительное пространство распределяется в зависимости от его <strong>flex-grow</strong> значения.</p>
+        <img src="assets/td1azgcwd1gpgzcvw-zmtv9ppf4.png" alt="размер элемента в пространстве">
+        <hr>
+
+        <h4>flex</h4>
+        <p>Это сокращение для использования <strong>flex-grow</strong>, <strong>flex-shrink</strong> и <strong>flex-basis</strong> вместе. Второй и третий параметры (<strong>flex-shrink</strong> и <strong>flex-basis</strong>) являются необязательными. По умолчанию это <strong>0 1 auto</strong>.</p>
+        <div class="example">
+            <p>flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]</p>
+        </div>
+
+        <p>Обратите внимание что свойства <strong>float</strong> , <strong>clear</strong>  и <strong>vertical-align</strong>  не влияют на flex элементы.</p>
+
+        <h2>Поддержка в браузерах</h2>
+
+        <p>Разбита по «версии» flexbox:</p>
+        <ul>
+            <li>(new) означает недавний синтаксис из спецификации (например <strong>display</strong>: <strong>flex</strong>;)</li>
+            <li>(tweener) означает странный неофициальный синтаксис с 2011 года (например <strong>display</strong>: <strong>flexbox</strong>;)</li>
+            <li>(old) означает старый синтаксис с 2009 года (например <strong>display</strong>: <strong>box</strong>;)</li>
+        </ul>
+        <div class="support">
+            <img src="assets/mj-yhklt6ewf_cpllgknye2aomq.png" alt="поддержка в браузерах">
+        </div>
+
+        <p>Blackberry Browser 10+ поддерживает новый синтаксис.</p>
+        <p>Для получения дополнительной информации о том, как смешивать синтаксисы, чтобы получить лучшую поддержку браузера, пожалуйста, обратитесь к этой статье (<a href="https://css-tricks.com/using-flexbox/" target="_blank">CSS-хитрости</a>) или этой статье (<a href="https://dev.opera.com/articles/advanced-cross-browser-flexbox/#fallbacks" target="_blank">DevOpera</a>).</p>
+
+        <button type="button">Вверх</button>
+    </section>
+
+    <footer>
+        <p>г.Санкт-Петербург</p>
+        <p>2022 год</p>
+    </footer>
+
+   <script src="index.js"></script> 
+</body>
+</html>
